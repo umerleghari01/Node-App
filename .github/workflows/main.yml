@@ -1,0 +1,23 @@
+name: My Workflow
+
+on:
+ push:
+   branches:
+     - main
+     
+jobs:
+  clone:
+     runs-on: ubuntu-latest
+     steps:
+       - name: Checkout
+         uses: actions/checkout@v3
+       - name: Install tree
+         run: sudo apt-get install tree -y
+  show-repo-files:
+     needs: clone
+     runs-on: ubuntu-latest
+     steps:
+       - name: Show the files of the Github Repository
+         run: |
+           echo "Repository:${{ github.repository }} contain the following files:"
+           tree -a
